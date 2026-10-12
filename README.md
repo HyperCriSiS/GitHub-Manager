@@ -56,3 +56,7 @@ Siehe [Roadmap](docs/ROADMAP.md), [Projektprofil](docs/PROJECT-PROFILE.md), [Ris
 ## Status der Sicherheitsprüfung
 
 Vor Erstveröffentlichung wurden Paketdateien nach typischen Token-/Private-Key-Mustern untersucht und Repository-spezifische private Inventare ausgeschlossen. Ein vollständiges Secret-Scanning-System oder unabhängiger Security-Audit ist das nicht.
+
+## Initialimport und bekannte Grenzen
+
+Siehe [`docs/IMPORT-AUDIT.md`](docs/IMPORT-AUDIT.md) für Herkunft, gefundene und ausgeschlossene Inhalte sowie offene Testpflichten. **Eine öffentliche Preview ist keine Freigabe für produktive Bulk-DELETEs.**
