@@ -1,4 +1,4 @@
-#requires -Version 5.1
+﻿#requires -Version 5.1
 [CmdletBinding()]
 param()
 $ErrorActionPreference = 'Stop'
@@ -13,6 +13,13 @@ foreach ($path in $required) {
 $files = @(Get-ChildItem -Path $root -Recurse -File -Filter '*.ps1')
 $failed = 0
 foreach ($file in $files) {
+    # Windows PowerShell 5.1 treats UTF-8 without BOM as the active ANSI code page.
+    # Require a BOM for all PowerShell sources to avoid silent Unicode corruption.
+    $bytes = [System.IO.File]::ReadAllBytes($file.FullName)
+    if ($bytes.Length -lt 3 -or $bytes[0] -ne 239 -or $bytes[1] -ne 187 -or $bytes[2] -ne 191) {
+        $failed++
+        Write-Host ("ENCODING FEHLER: {0}: UTF-8 BOM fehlt." -f $file.FullName) -ForegroundColor Red
+    }
     $tokens = $null
     $parseErrors = $null
     [void][System.Management.Automation.Language.Parser]::ParseFile($file.FullName, [ref]$tokens, [ref]$parseErrors)
@@ -24,7 +31,7 @@ foreach ($file in $files) {
     }
     else { Write-Host "PARSE OK: $($file.FullName.Substring($root.Length+1))" }
 }
-if ($failed -gt 0) { throw "$failed Parser-Fehler gefunden." }
+if ($failed -gt 0) { throw "$failed Parser-/Encoding-Fehler gefunden." }
 $mainContent = Get-Content -LiteralPath $main -Raw -Encoding UTF8
 foreach ($name in @('GitHubManager.Extensions.ps1','GitHubManager.Release.ps1',
                   'GitHubManager.Templates.ps1','GitHubManager.BulkCleanup.ps1')) {
@@ -44,4 +51,4 @@ foreach ($launcher in @('Start-GitHub-Manager.cmd','Start-GitHub-Manager-Debug.c
     $content = Get-Content -LiteralPath (Join-Path $root $launcher) -Raw
     if (-not $content.Contains('GitHub-Manager-v4.2.0.ps1')) { throw "Launcher $launcher verweist auf falsche Version." }
 }
-Write-Host ("PASS: {0} PowerShell-Dateien geparst und Paketverweise geprüft." -f $files.Count) -ForegroundColor Green
+Write-Host ("PASS: {0} PowerShell-Dateien geparst, BOM und Paketverweise geprüft." -f $files.Count) -ForegroundColor Green

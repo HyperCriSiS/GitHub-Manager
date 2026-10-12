@@ -20,6 +20,9 @@ jobs:
       - name: Parse and validate on Windows PowerShell 5.1
         shell: powershell
         run: .\scripts\Validate-Package.ps1
+      - name: Scan source for accidental credentials
+        shell: powershell
+        run: .\scripts\Test-SourceHygiene.ps1
       - name: Build source package
         shell: powershell
         run: .\scripts\Build-Package.ps1
@@ -32,3 +35,6 @@ jobs:
       - name: Parse and validate on PowerShell 7
         shell: pwsh
         run: ./scripts/Validate-Package.ps1
+      - name: Scan source for accidental credentials
+        shell: pwsh
+        run: ./scripts/Test-SourceHygiene.ps1
