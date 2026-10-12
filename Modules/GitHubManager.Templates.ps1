@@ -1,4 +1,4 @@
-$script:SetupControls = @{}
+﻿$script:SetupControls = @{}
 $script:SetupGroups = @()
 $script:SetupDefinitions = @(
     [ordered]@{ Key='Repository.Issues'; Category='Repository'; Label='Issues'; Type='Bool'; DefaultApply=$true; DefaultValue=$true; Help='Issue-Tracker aktivieren oder deaktivieren.' },

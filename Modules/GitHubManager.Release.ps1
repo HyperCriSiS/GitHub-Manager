@@ -1,4 +1,4 @@
-function Clear-ReleaseData {
+﻿function Clear-ReleaseData {
     $script:State.Releases = @()
     $script:State.Tags = @()
     if ($null -ne $releaseGrid) { $releaseGrid.Rows.Clear() }

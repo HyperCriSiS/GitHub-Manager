@@ -1,4 +1,4 @@
-function Invoke-GhApiBody {
+﻿function Invoke-GhApiBody {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]

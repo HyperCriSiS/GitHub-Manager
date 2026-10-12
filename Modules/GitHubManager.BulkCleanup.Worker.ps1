@@ -1,4 +1,4 @@
-param(
+﻿param(
     [ValidateSet('Preview', 'Execute')][string]$Mode,
     [string]$Repository,
     [hashtable]$Options,

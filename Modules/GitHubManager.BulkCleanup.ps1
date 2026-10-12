@@ -1,4 +1,4 @@
-# GitHub Manager – repositoryübergreifende Bereinigung.
+﻿# GitHub Manager – repositoryübergreifende Bereinigung.
 # Alle Remote-Operationen laufen in getrennten PowerShell-Runspaces.
 $script:BulkCleanup = [pscustomobject]@{
     Running=$false; Phase=''; Jobs=@(); Auth=$null; Client=$null; Pool=$null;
