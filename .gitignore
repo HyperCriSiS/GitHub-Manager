@@ -1,0 +1,20 @@
+# Local config/auth state
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.pfx
+*.key
+*.secret
+**/secrets.json
+**/credentials.json
+# Generated build outputs and local diagnostics
+out/
+*.log
+*.tmp
+*.bak
+# Local IDE
+.vs/
+.vscode/
+.idea/
